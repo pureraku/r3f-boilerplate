@@ -1,11 +1,12 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
 import Box from "./Box";
 import Plane from "./Plane";
 import Sphere from "./Sphere";
+import Model from "./Car"; 
 
 interface FallingSphereData {
   id: number;
@@ -37,14 +38,17 @@ export default function Scene() {
   }, []);
 
   return (
-    <Canvas camera={{ position:[10,12,-2], fov: 90 }}>
+    <Canvas camera={{ position: [10, 12, -2], fov: 90 }}>
       <ambientLight intensity={1.5} />
-      <Physics >
+      <Physics>
         <Box />
         <Plane />
         {spheres.map((sphere) => (
           <Sphere key={sphere.id} position={sphere.position} />
         ))}
+        <Suspense fallback={null}>
+           <Model />
+        </Suspense>
       </Physics>
       <OrbitControls makeDefault />
     </Canvas>
