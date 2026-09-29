@@ -3,10 +3,10 @@ import { useState, useEffect, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
-import Box from "./Box";
-import Plane from "./Plane";
-import Sphere from "./Sphere";
-import Model from "./Car"; 
+import Box from "./objects/Box";
+import Plane from "./objects/Plane";
+import Sphere from "./objects/Sphere";
+import Model from "./objects/Car"; 
 
 interface FallingSphereData {
   id: number;
