@@ -1,7 +1,12 @@
 self.__BUILD_MANIFEST = {
   "__rewrites": {
     "afterFiles": [],
-    "beforeFiles": [],
+    "beforeFiles": [
+      {
+        "source": "/r3f-boilerplate//_next/:path+",
+        "destination": "/r3f-boilerplate/_next/:path+"
+      }
+    ],
     "fallback": []
   },
   "sortedPages": [
