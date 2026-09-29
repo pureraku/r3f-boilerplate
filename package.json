@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "deploy": "gh-pages -d out -b gh-pages"
+    "deploy": "npm run build && node -e \"require('fs').writeFileSync('out/.nojekyll', '')\" && gh-pages -d out -b gh-pages --dotfiles"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.9",
