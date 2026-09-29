@@ -2,6 +2,8 @@
 
 just a basic r3f boilerplate with physics integration
 
+![preview](./images/preview.png)
+
 ## Run
 ```
 npm i && npm run dev
