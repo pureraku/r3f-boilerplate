@@ -40,7 +40,7 @@ export default function Scene() {
   return (
     <Canvas camera={{ position: [10, 12, -2], fov: 90 }}>
       <ambientLight intensity={1.5} />
-      <Physics>
+      <Physics debug>
         <Box />
         <Plane />
         {spheres.map((sphere) => (
