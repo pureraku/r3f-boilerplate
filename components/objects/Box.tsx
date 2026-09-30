@@ -7,6 +7,7 @@ import * as THREE from "three";
 export default function Box() {
   const rbRef = useRef<RapierRigidBody>(null);
   const meshRef = useRef<THREE.Mesh>(null);
+  const colorTimer = useRef(0);
   const { world } = useRapier();
 
   const [isPulsing, setIsPulsing] = useState(false);
@@ -17,11 +18,9 @@ export default function Box() {
     (window as any).resetBoxPhysics = () => {
       if (rbRef.current) {
         rbRef.current.wakeUp();
-        // Reset position to [0, 5, 0]
         rbRef.current.setTranslation({ x: 0, y: 5, z: 0 }, true);
-        // Wipe existing falling momentum clean so it doesn't inherit previous speeds
-        rbRef.current.setLinvel({ x: 0, y: 0, z: 0 }, true);
-        rbRef.current.setAngvel({ x: 0, y: 0, z: 0 }, true);
+        rbRef.current.setLinvel({ x: 0, y: 10, z: 0 }, true);
+        rbRef.current.setAngvel({ x: 0, y: 10, z: 10 }, true);
       }
     };
 
@@ -33,14 +32,25 @@ export default function Box() {
   useFrame((state, delta) => {
     if (!meshRef.current) return;
     if (isPulsing) {
-      scaleProgress.current = Math.min(1, scaleProgress.current + delta * 2.2);
+      scaleProgress.current = Math.min(1, scaleProgress.current + delta * 42.0);
     } else {
-      scaleProgress.current = Math.max(0, scaleProgress.current - delta * 3.0);
+      scaleProgress.current = Math.max(0, scaleProgress.current - delta * 300.0);
     }
     const t = scaleProgress.current;
     const smoothFactor = Math.sin(t * Math.PI * 0.85) * (1 + 0.3 * (1 - t)); 
     const dynamicScale = baseScale + baseScale * 0.6 * smoothFactor;
     meshRef.current.scale.set(dynamicScale, dynamicScale, dynamicScale);
+    colorTimer.current += delta;
+    if(colorTimer.current > 0.5){
+    const material = meshRef.current.material as THREE.MeshStandardMaterial;
+
+    material.color.setHSL(
+      Math.random(),
+      Math.random(),
+      Math.random()
+    );
+    colorTimer.current = 0;
+    }
   });
 
   const handleClick = () => {
@@ -50,6 +60,7 @@ export default function Box() {
 
     rbRef.current.wakeUp();
     rbRef.current.applyImpulse({ x: 0, y: 35.0, z: 0 }, true);
+    rbRef.current.setAngvel({x:0,y:10,z:10},true);
 
     const boxPos = rbRef.current.translation();
     const blastRadius = 9.0;
