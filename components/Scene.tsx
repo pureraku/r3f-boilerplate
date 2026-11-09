@@ -7,6 +7,7 @@ import Box from "./objects/Box";
 import Plane from "./objects/Plane";
 import Sphere from "./objects/Sphere";
 import Model from "./objects/Car"; 
+import WellModel from "./objects/Well"; 
 
 interface FallingSphereData {
   id: number;
@@ -48,6 +49,7 @@ export default function Scene() {
         ))}
         <Suspense fallback={null}>
            <Model />
+           <WellModel />
         </Suspense>
       </Physics>
       <OrbitControls makeDefault />

@@ -10,3 +10,8 @@ npm i && npm run dev
 ```
 
 >ps: this is related to my threejs-boilerplate repo but uses r3f rather than vanilla threejs
+
+
+
+### btw heres the well i made :3
+![btw](./images/Untitled.png)
